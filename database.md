@@ -172,6 +172,13 @@ Some database statements do not return any value. For these types of operations,
 
     DB::statement('drop table users');
 
+#### Running A General Statement with row count
+
+For some database statements you just want to know if any rows were updated. For these types of operations, you may use the `affectingStatement` method on the `DB` facade:
+
+    $adminRowCount = DB::affectingStatement('insert into subscribers (user_id) select id from users where email=? and email_verified=true', ['user@example.com']);
+    throw_unless(adminRowCount, new Exception('You should register an account and verify your email address first'));
+
 <a name="listening-for-query-events"></a>
 ## Listening For Query Events
 
